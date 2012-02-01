@@ -6,6 +6,7 @@
 #include "poShapeBasics2D.h"
 #include <iostream>
 #include "poSimpleDrawing.h"
+#include "poTextBox.h"
 
 class Homework1App : public poObject {
 public:

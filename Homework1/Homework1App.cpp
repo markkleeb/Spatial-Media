@@ -43,14 +43,13 @@ void Homework1App::draw() {
     if( lastKeyDown == '1')
         drawGrid1();
     
-    if(lastKeyDown == '2')
+   else if(lastKeyDown == '2' || lastKeyDown == 'a' || lastKeyDown == 'w' || lastKeyDown == 's' || lastKeyDown == 'd')
         drawGrid2();
     
-    if(lastKeyDown == '3')
+    else if(lastKeyDown == '3')
         drawGrid3();
 	
-    else
-        drawGrid2();
+   
     
 }
 
@@ -78,6 +77,20 @@ void Homework1App::drawGrid1()
 
 void Homework1App::drawGrid2()
 {
+    
+    poTextBox* A = new poTextBox(200, 120);				// Specify the width and height of the text box (optional)
+	A->setText('X: %i Y: %i', mouseX, mouseY);		// Set the text
+	A->setFont( poGetFont("Helvetica", "Regular") );	// Set the font, always
+    // You can create a new poFont by calling poGetFont("FontFamilyName", "FontStyle")
+    // Make sure the font is installed in your machine
+	A->setTextSize(18);									// Set the text size
+	A->textColor = poColor::black;						// Set the text color
+	A->doLayout();										// Always call doLayout() after you make any change
+	A->drawBounds = true;								// Show the bounds of the text box
+	A->position.set(300, 20, 0);
+	addChild( A );
+
+    
     
     for (int i=0; i<=50; i++) {
         
@@ -125,13 +138,19 @@ void Homework1App::drawGrid2()
 void Homework1App::drawGrid3()
 {
     
-    for (int w1=0; w1<=50; w1++) {
+    for (int w=0; w<=100; w++) {
         
-        for(int h1=0; h1<=50; h1++){
+        for(int h=0; h<=100; h++){
             
-            setColor(poColor::white);
-            drawFilledRect(w1*20,h1*20,10,10);
+            drawFilledRect(w*10,h*10,10,10);
             
+            if((w +h)%2 ==0){
+                
+                setColor(poColor::white);
+            }
+            
+            else
+                setColor(poColor::red);
             
             
             
@@ -139,21 +158,7 @@ void Homework1App::drawGrid3()
         
     }
     
-    for (int w2=0; w2<=50; w2++) {
-        
-        for(int h2=0; h2<=50; h2++){
-            
-            setColor(poColor::red);
-            drawFilledRect(w2*20+10,h2*20,10,10);
-            
-            
-            
-            
-        }
-        
-    }
-    
-    
+       
 }
 
 // EVENT HANDLER. Called when events happen. Respond to events here.
@@ -170,7 +175,7 @@ void Homework1App::eventHandler(poEvent *event) {
     
     if(event->type == PO_KEY_UP_EVENT){
         
-        lastKeyDown = 2;
+     
         
     }
     
