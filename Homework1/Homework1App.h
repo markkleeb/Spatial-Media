@@ -32,5 +32,7 @@ public:
     int redsquarex;
     int redsquarey;
     
+    poTextBox* A;
+    
 };
 

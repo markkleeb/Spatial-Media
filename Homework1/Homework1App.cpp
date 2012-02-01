@@ -6,6 +6,7 @@
 #include "poApplication.h"
 #include "poCamera.h"
 #include "poSimpleDrawing.h"
+#include <iostream>
 
 using namespace po;
 using namespace std;
@@ -16,11 +17,39 @@ Homework1App::Homework1App() {
 	addModifier(new poCamera2D(poColor::black));
     
     lastKeyDown = '1';
+    
     mouseX = 0;
     mouseY = 0;
     
-    redsquarex=0;
-    redsquarey=0;
+    redsquarex = 0;
+    redsquarey = 0;
+    
+    stringstream sstm;
+    
+    
+    sstm << "X:" << redsquarex << ", Y: " << redsquarey;
+    
+    
+    
+    
+    A = new poTextBox(120, 20);				// Specify the width and height of the text box (optional)
+	A->setText(sstm.str());		// Set the text
+	A->setFont( poGetFont("Helvetica", "Regular") );	// Set the font, always
+    // You can create a new poFont by calling poGetFont("FontFamilyName", "FontStyle")
+    // Make sure the font is installed in your machine
+	A->setTextSize(18);									// Set the text size
+	A->textColor = poColor::white;						// Set the text color
+	A->doLayout();										// Always call doLayout() after you make any change
+	A->drawBounds = true;								// Show the bounds of the text box
+	A->position.set(700, 10, 0);
+	addChild( A );
+    
+    
+    
+
+    
+      
+    
     
  addEvent(PO_KEY_DOWN_EVENT, this);
     addEvent(PO_MOUSE_MOVE_EVENT, this);
@@ -43,7 +72,7 @@ void Homework1App::draw() {
     if( lastKeyDown == '1')
         drawGrid1();
     
-   else if(lastKeyDown == '2' || lastKeyDown == 'a' || lastKeyDown == 'w' || lastKeyDown == 's' || lastKeyDown == 'd')
+   else if(lastKeyDown == '2' || lastKeyDown == 'a' || lastKeyDown == 'w' || lastKeyDown == 's' || lastKeyDown == 'd' || lastKeyDown == 'q')
         drawGrid2();
     
     else if(lastKeyDown == '3')
@@ -78,18 +107,6 @@ void Homework1App::drawGrid1()
 void Homework1App::drawGrid2()
 {
     
-    poTextBox* A = new poTextBox(200, 120);				// Specify the width and height of the text box (optional)
-	A->setText('X: %i Y: %i', mouseX, mouseY);		// Set the text
-	A->setFont( poGetFont("Helvetica", "Regular") );	// Set the font, always
-    // You can create a new poFont by calling poGetFont("FontFamilyName", "FontStyle")
-    // Make sure the font is installed in your machine
-	A->setTextSize(18);									// Set the text size
-	A->textColor = poColor::black;						// Set the text color
-	A->doLayout();										// Always call doLayout() after you make any change
-	A->drawBounds = true;								// Show the bounds of the text box
-	A->position.set(300, 20, 0);
-	addChild( A );
-
     
     
     for (int i=0; i<=50; i++) {
@@ -132,6 +149,22 @@ void Homework1App::drawGrid2()
     
    
   
+    stringstream sstm;
+    
+    
+    sstm << "X:" << redsquarex << ", Y: " << redsquarey;
+    
+    
+    // Specify the width and height of the text box (optional)
+	A->setText(sstm.str());		// Set the text
+                    // Set the text color
+	A->doLayout();										// Always call doLayout() after you make any change
+   
+    
+
+   
+
+    
     
 }
 
@@ -175,8 +208,9 @@ void Homework1App::eventHandler(poEvent *event) {
     
     if(event->type == PO_KEY_UP_EVENT){
         
-     
-        
+        if(lastKeyDown !='3' && lastKeyDown != '1'){
+     lastKeyDown = 'q';
+        }
     }
     
     if (event->type == PO_MOUSE_MOVE_EVENT )
